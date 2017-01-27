@@ -21,4 +21,6 @@ before_script:
 
 script:
   - ./gradlew installDebug &
-  - sleep 10 && exit 0
+  - sleep 5m && exit 0
+  - echo
+  - echo 'See above to check'
