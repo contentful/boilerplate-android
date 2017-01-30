@@ -2,13 +2,19 @@ package com.contentful.hello.android;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.Toast;
+import android.text.Html;
+import android.util.Log;
+import android.widget.TextView;
 
 import com.contentful.java.cda.CDAArray;
 import com.contentful.java.cda.CDAClient;
 import com.contentful.java.cda.CDAEntry;
 import com.contentful.java.cda.CDAResource;
 import com.contentful.java.cda.CDASpace;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
@@ -68,6 +74,18 @@ public class MainActivity extends AppCompatActivity {
       .setSpace(SPACE_ID)
       .build();
 
+  /*
+   * This variable will store the view to put the result messages into.
+   */
+  private TextView messageView;
+
+  /*
+   * This private variable will be used for formatting the output. It will be set to
+   * an empty string to annotate, that it should not have a topmost border. As soon
+   * as something gets outputted, this limiter will be set to a border.
+   */
+  private String limiter = "";
+
   /**
    * Creates this activity.
    * <p>
@@ -79,6 +97,7 @@ public class MainActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
+    messageView = (TextView) findViewById(R.id.main_messages);
   }
 
   /**
@@ -106,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
              * general information of the space. Let us print the name we set in the WebApp of this space to
              * the command line.
              */
-            Toast.makeText(MainActivity.this, "Fetched space with name: " + space.name(), Toast.LENGTH_SHORT).show();
+            info("Fetched Space", Collections.singletonList("name: <b>" + space.name() + "</b>"));
           }
         });
 
@@ -126,19 +145,21 @@ public class MainActivity extends AppCompatActivity {
             /*
              * The following snipped will toast out the id and type of all entries requested.
              */
-            StringBuilder builder = new StringBuilder();
+            final List<String> entryDescriptions = new ArrayList<>();
             for (final CDAResource resource : entries.items()) {
               // We are sure that all resources returned are a CDAEntry, since we specified it in the fetch
               // so we can directly cast it to an entry.
               final CDAEntry entry = (CDAEntry) resource;
-              builder
-                  .append(entry.id())
-                  .append(": ")
-                  .append(entry.contentType())
-                  .append("\n");
+              entryDescriptions.add(entry.id() + " of <b>" + entry.contentType().id() + "</b> with ");
+
+              for (final String key : entry.rawFields().keySet()) {
+                entryDescriptions.add("<b>" + key + "</b> = " + ellipsize(entry.getField(key).toString()));
+              }
+              entryDescriptions.add("<br/>");
             }
 
-            Toast.makeText(MainActivity.this, builder.toString(), Toast.LENGTH_SHORT).show();
+            info("All Entries", entryDescriptions);
+            entryDescriptions.clear();
 
             /*
              * The last thing we want to show with this app, is how to filter all of entries in a space, so
@@ -158,11 +179,16 @@ public class MainActivity extends AppCompatActivity {
                 .subscribeOn(Schedulers.io())
                 .subscribe(new Action1<CDAArray>() {
                   @Override public void call(CDAArray entries) {
+                    final List<String> entryDescriptions = new ArrayList<>();
                     for (final CDAResource resource : entries.items()) {
                       final CDAEntry entry = (CDAEntry) resource;
-                      final String description = String.format("%s of %s", entry.id(), entry.getAttribute("contentType"));
-                      Toast.makeText(MainActivity.this, description, Toast.LENGTH_SHORT).show();
+                      entryDescriptions.add(String.format("%s of <b>%s</b>", entry.id(), entry.contentType().id()));
+
+                      for (final String key : entry.rawFields().keySet()) {
+                        entryDescriptions.add("<b>" + key + "</b>: " + entry.getField(key));
+                      }
                     }
+                    info("Filtered Entries", entryDescriptions);
                   }
                 });
           }
@@ -174,5 +200,34 @@ public class MainActivity extends AppCompatActivity {
      * documentation</a>}
      */
     super.onResume();
+  }
+
+  /**
+   * This internal method will be used to print out messages on the logger and on screen.
+   */
+  private void info(String title, List<String> descriptions) {
+    Log.d("HELLO CONTENTFUL", Html.fromHtml(title).toString() + ":" + Html.fromHtml(descriptions.toString()).toString());
+
+    messageView.append(Html.fromHtml(limiter));
+    limiter = "<br/><br/>";
+    messageView.append(Html.fromHtml("<h1>" + title + "</h1><br/>"));
+
+    for (final String description : descriptions) {
+      messageView.append(Html.fromHtml(description));
+      messageView.append(Html.fromHtml("<br/>"));
+    }
+  }
+
+  /**
+   * An internal method to reduce the size of the given text to a maximum. Every text longer
+   * will be cut, every text short will stay the same.
+   */
+  public static String ellipsize(String input) {
+    final int MAX = 20;
+    if (input.length() <= MAX) {
+      return input;
+    } else {
+      return input.substring(0, MAX - 1) + "…";
+    }
   }
 }

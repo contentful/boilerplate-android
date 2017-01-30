@@ -13,9 +13,9 @@ Creating the Contentful SDK, requesting all entries from Contentful, filtering s
 If you want to download the source code, please hit the little clone button next to this repository, or clone it using the following command line:
 
 ```
-git clone git@github.com:contentful/contentful.java-hello-world
+git clone git@github.com:contentful/boilerplate-android
 ```
-Once you have downloaded it, please feel free to run it using
+Once you have downloaded it, please feel free to install it using
 
 ```
 ./gradlew installDebug
@@ -27,12 +27,12 @@ gradlew.bat installDebug
 ```
 on windows.
 
-This will install the app on a runninng emulator, or connected device. To execute the sample, look for the app called `Hello Contentful`, featuring this icon: 
+This will install the app on a running emulator, or connected device. To execute the sample, look for the app called `Contentful`, featuring this icon:
 
 <img src="https://github.com/contentful/boilerplate-android/blob/master/app/src/main/ic_launcher-web.png?raw=true" width="100"/>
 
 # End
 
-Thanks, that's it. Please feel free to experiement and leave any issues, as bugs, suggestions for spelling mistakes, etc. here at [this repository issue page](https://github.com/contentful/boilerplate-android/issues).
+Thanks, that's it. Please feel free to experiment and leave any issues, as bugs, suggestions for spelling mistakes, etc. here at [this repository issue page](https://github.com/contentful/boilerplate-android/issues).
 
 Be excellent to each other!
