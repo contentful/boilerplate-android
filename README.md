@@ -2,7 +2,7 @@
 
 This repository contains a simple Hello World style example Android app on how to use Contentful.
 
-<img src="https://github.com/contentful/contentful.java-hello-android-world/blob/master/assets/device-screenshot.png?raw=true" width="200"/>
+<img src="https://github.com/contentful/boilerplate-android/blob/master/assets/device-screenshot.png?raw=true" width="200"/>
 
 # Description of the App
 
@@ -18,14 +18,18 @@ git clone git@github.com:contentful/contentful.java-hello-world
 Once you have downloaded it, please feel free to run it using
 
 ```
-./gradlew run
+./gradlew installDebug
 ```
 on linux/mac or
 
 ```
-gradlew.bat run
+gradlew.bat installDebug
 ```
 on windows.
+
+This will install the app on a runninng emulator, or connected device. To execute the sample, look for the app called `Hello Contentful`, featuring this icon: 
+
+<img src="https://github.com/contentful/boilerplate-android/blob/master/app/src/main/ic_launcher-web.png?raw=true" width="100"/>
 
 # End
 
