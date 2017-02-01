@@ -1,38 +1,41 @@
 # Hello World, Contentful Style
 
-This repository contains a simple Hello World style example Android app on how to use Contentful.
+This is a sample app that shows you how to get started using Contentful with an Android application.
 
 <img src="https://github.com/contentful/boilerplate-android/blob/master/assets/device-screenshot.png?raw=true" width="200"/>
 
-# Description of the App
+## Description of the app
 
-Creating the Contentful SDK, requesting all entries from Contentful, filtering some results, and more is part of this simple application. For a more indepth description, please [see the source code of the Main Activity](app/src/main/java/com/contentful/hello/android/MainActivity.java). Please feel free to also checkout the [dependencies](app/build.gradle#L28) and the [permissions](app/src/main/AndroidManifest.xml#L5) needed.
+The app creates a client to the Contentful API, requests all entries from a space, and then filters the results based on two criteria. For more details [browse the source code of the Main Activity](app/src/main/java/com/contentful/hello/android/MainActivity.java), the [dependencies](app/build.gradle#L28) and the [permissions](app/src/main/AndroidManifest.xml#L5) needed.
 
-# Downloading and using the App
+## Download and use the app
 
-If you want to download the source code, please hit the little clone button next to this repository, or clone it using the following command line:
+If you want to download the source code of the application, click the little clone button next to this repository, or clone it using the following command:
 
-```
+```bash
 git clone git@github.com:contentful/boilerplate-android
 ```
-Once you have downloaded it, please feel free to install it using
 
-```
+Once it's downloaded, run it with:
+
+```bash
 ./gradlew installDebug
 ```
-on linux/mac or
 
-```
+On Linux/Mac, or:
+
+```bash
 gradlew.bat installDebug
 ```
-on windows.
 
-This will install the app on a running emulator, or connected device. To execute the sample, look for the app called `Contentful`, featuring this icon:
+On Windows.
+
+This will install the app on a running emulator, or connected device. To run the app from the launcher, look for the app called 'Contentful' with this icon:
 
 <img src="https://github.com/contentful/boilerplate-android/blob/master/app/src/main/ic_launcher-web.png?raw=true" width="100"/>
 
-# End
+## End
 
-Thanks, that's it. Please feel free to experiment and leave any issues, as bugs, suggestions for spelling mistakes, etc. here at [this repository issue page](https://github.com/contentful/boilerplate-android/issues).
+That's it. Feel free to experiment and leave any issues, bugs, suggestions for spelling mistakes, etc. via [the repository issue page](https://github.com/contentful/boilerplate-android/issues).
 
 Be excellent to each other!
