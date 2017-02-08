@@ -24,3 +24,6 @@ script:
   - sleep 5m && exit 0
   - echo
   - echo 'See above to check'
+
+notifications:
+  slack: contentful:ajftyutXc0NAbIysa4FAcJli
