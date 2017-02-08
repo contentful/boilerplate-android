@@ -1,5 +1,4 @@
-[![travis status](https://travis-ci.com/contentful/boilerplate-android.svg?token=rXqy8QBu9MmE9B9fQ48r&branch=master
-)](https://travis-ci.com/contentful/boilerplate-java)
+[![Build Status](https://travis-ci.org/contentful/boilerplate-android.svg?branch=master)](https://travis-ci.org/contentful/boilerplate-android)
 
 # Hello World, Contentful Style
 
