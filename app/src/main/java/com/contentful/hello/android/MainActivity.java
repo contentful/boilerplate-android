@@ -16,9 +16,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
-import rx.schedulers.Schedulers;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Main class of a simple example of an Android App using Contentful.
@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
    *
    * @see <a href="http://app.contentful.com">WebApp</a>
    */
-  private static final String CDA_TOKEN = "297e67b247c1a77c1a23bb33bf4c32b81500519edd767a8384a4b8f8803fb971";
+  private static final String CDA_TOKEN = "fdb4e7a3102747a02ea69ebac5e282b9e44d28fb340f778a4f5e788625a61abe";
 
   /**
    * Space <b>id</b>entifier.
@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
    *
    * @see <a href="http://app.contentful.com">WebApp</a>
    */
-  private static final String SPACE_ID = "71rop70dkqaj";
+  private static final String SPACE_ID = "yadj1kx9rmg0";
 
   /*
    * Create the client
@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
-    messageView = (TextView) findViewById(R.id.main_messages);
+    messageView = findViewById(R.id.main_messages);
   }
 
   /**
@@ -116,8 +116,8 @@ public class MainActivity extends AppCompatActivity {
         .observeSpace()
         .observeOn(AndroidSchedulers.mainThread()) // run code in the following action on main thread
         .subscribeOn(Schedulers.io()) // run all other code (fetching, internet, etc) on different thread
-        .subscribe(new Action1<CDASpace>() {
-          @Override public void call(CDASpace space) {
+        .subscribe(new Consumer<CDASpace>() {
+          @Override public void accept(CDASpace space) {
             /*
              * Now that we have a space, we can find out the name of it. Thankfully the Contentful SDK has
              * already created an object based on the response from the Contentful API: A {@see CDASpace}.
@@ -140,8 +140,8 @@ public class MainActivity extends AppCompatActivity {
         .all()
         .observeOn(AndroidSchedulers.mainThread())
         .subscribeOn(Schedulers.io())
-        .subscribe(new Action1<CDAArray>() {
-          @Override public void call(CDAArray entries) {
+        .subscribe(new Consumer<CDAArray>() {
+          @Override public void accept(CDAArray entries) {
             /*
              * The following snipped will toast out the id and type of all entries requested.
              */
@@ -177,8 +177,8 @@ public class MainActivity extends AppCompatActivity {
                 .all()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(new Action1<CDAArray>() {
-                  @Override public void call(CDAArray entries) {
+                .subscribe(new Consumer<CDAArray>() {
+                  @Override public void accept(CDAArray entries) {
                     final List<String> entryDescriptions = new ArrayList<>();
                     for (final CDAResource resource : entries.items()) {
                       final CDAEntry entry = (CDAEntry) resource;

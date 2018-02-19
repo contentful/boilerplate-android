@@ -1,17 +1,10 @@
-# Add project specific ProGuard rules here.
-# By default, the flags in this file are appended to flags specified
-# in /home/mario/Android/sdk/tools/proguard/proguard-android.txt
-# You can edit the include path and order by changing the proguardFiles
-# directive in build.gradle.
-#
-# For more details, see
-#   http://developer.android.com/guide/developing/tools/proguard.html
-
-# Add any project specific keep options here:
-
-# If your project uses WebView with JS, uncomment the following
-# and specify the fully qualified class name to the JavaScript interface
-# class:
-#-keepclassmembers class fqcn.of.javascript.interface.for.webview {
-#   public *;
-#}
+-dontwarn javax.annotation.**
+-dontwarn org.codehaus.mojo.animal_sniffer.IgnoreJRERequirement
+-dontwarn sun.misc.Unsafe
+-dontnote org.apache.http.params.**
+-dontnote org.apache.http.conn.**
+-dontnote android.net.http.**
+-dontnote com.google.gson.internal.UnsafeAllocator
+-dontnote okhttp3.internal.platform.AndroidPlatform
+-dontnote okhttp3.internal.platform.Platform
+-dontnote com.contentful.java.cda.Platform
